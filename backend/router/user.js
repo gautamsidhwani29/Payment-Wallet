@@ -33,7 +33,7 @@ userRouter.post('/signup', async (req, res) => {
 
       res.cookie("token", token, {
          httpOnly: true,
-         secure: false,
+         secure: true,
          maxAge: 3600000 // 1 hour 
       });
 
@@ -54,7 +54,7 @@ userRouter.post("/signin", async (req, res) => {
       if (!isPasswordValid) return res.status(401).json({ error: "Invalid Password" });
 
       const sessionToken = jwt.sign({ email: user.email }, SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
-      res.cookie("token", sessionToken, { httpOnly: true, secure:false});
+      res.cookie("token", sessionToken, { httpOnly: true, secure:true});
       res.status(200).json({ message: "Login Successful" });
    } catch (e) {
       console.error('Signin Error:', e);
@@ -64,7 +64,7 @@ userRouter.post("/signin", async (req, res) => {
 
 userRouter.post('/signout', (req, res) => {
    try {
-      res.clearCookie('token', { httpOnly: true, secure: false });
+      res.clearCookie('token', { httpOnly: true, secure: true });
 
       return res.status(200).json({ message: 'Logged out successfully!' });
    } catch (e) {
