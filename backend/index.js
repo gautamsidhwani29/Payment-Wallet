@@ -23,7 +23,7 @@ app.use(limiter);
 app.set('trust proxy', 1);
 
 const corsOptions = {
-    origin: [`http://localhost:${port}`, `http://localhost:5173`, `${process.end.FRONTEND_URL}`], 
+    origin: [`http://localhost:${port}`, `http://localhost:5173`, `${process.env.FRONTEND_URL}`], 
     credentials: true,  
     optionSuccessStatus: 200,
  };
