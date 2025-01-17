@@ -10,7 +10,14 @@ import mainRouter from "./router/index.js";
 import { User } from './schema.js';
 import cookieParser from 'cookie-parser';
 
-app.use(cookieParser());
+
+
+const corsOptions = {
+    origin: [`http://localhost:${port}`, `http://localhost:5173`, `${process.env.FRONTEND_URL}`], 
+    credentials: true,  
+    optionSuccessStatus: 200,
+ };
+ app.use(cookieParser());
 app.use(bodyParser.json());
 
 const limiter = rateLimit({
@@ -21,15 +28,11 @@ const limiter = rateLimit({
 
 app.use(limiter);
 app.set('trust proxy', 1);
-
-const corsOptions = {
-    origin: [`http://localhost:${port}`, `http://localhost:5173`, `${process.env.FRONTEND_URL}`], 
-    credentials: true,  
-    optionSuccessStatus: 200,
- };
  
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use("/api/v1", mainRouter);
 
 mongoose.connect(process.env.MONGO_URL, {ssl : true,
