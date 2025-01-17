@@ -70,7 +70,7 @@ accountRouter.post("/transfer", authenticate, async (req, res) => {
         });
     } catch (e) {
         console.log(e);
-        await session.abortTransaction();  // Rollback the transaction if there's an error
+        await session.abortTransaction();  
         res.status(500).json({ message: "Internal Server Error" });
     } finally {
         session.endSession();

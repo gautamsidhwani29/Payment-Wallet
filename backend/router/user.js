@@ -8,7 +8,7 @@ import { authenticate } from '../authenticate.js';
 import mongoose, { mongo } from 'mongoose';
 
 const SECRET_KEY = process.env.SECRET_KEY;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';  // Default expiry time
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';  
 const userRouter = express.Router();
 
 userRouter.post('/signup', async (req, res) => {
