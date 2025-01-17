@@ -23,7 +23,7 @@ app.use(limiter);
 app.set('trust proxy', 1);
 
 const corsOptions = {
-    origin: [`http://localhost:${port}`, `http://localhost:5173`, 'https://frontend-6m2mhph7z-gautamsidhwanis-projects.vercel.app/'], 
+    origin: [`http://localhost:${port}`, `http://localhost:5173`, `${process.end.FRONTEND_URL}`], 
     credentials: true,  
     optionSuccessStatus: 200,
  };
@@ -32,7 +32,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use("/api/v1", mainRouter);
 
-mongoose.connect(process.env.MONGO_URL, {ssl : true});
+mongoose.connect(process.env.MONGO_URL, {ssl : true,
+    autoReconnect: true,
+    connectTimeoutMS: 20000, 
+    socketTimeoutMS: 45000,
+});
 console.log("Connected to Database");
 
 app.listen(3000, () => console.log("Server Started"));
