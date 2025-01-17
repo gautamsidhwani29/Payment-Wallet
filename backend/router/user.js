@@ -31,10 +31,14 @@ userRouter.post('/signup', async (req, res) => {
 
       const token = jwt.sign({ email: newUser.email }, SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
 
-      res.cookie("token", token, {
-         httpOnly: true,
-         secure: true,
-         maxAge: 3600000 // 1 hour 
+      // Set cookie and wait for it before continuing
+      await new Promise((resolve, reject) => {
+         res.cookie("token", token, {
+            httpOnly: true,
+            secure: true, // Set this to true in production
+            maxAge: 3600000 // 1 hour 
+         });
+         resolve();
       });
 
       return res.status(201).json({ message: 'User created successfully', token });
@@ -43,6 +47,7 @@ userRouter.post('/signup', async (req, res) => {
       res.status(500).json({ error: "Signup Failed, Either User Exists or Server Error" });
    }
 });
+
 
 userRouter.post("/signin", async (req, res) => {
    try {
@@ -54,13 +59,23 @@ userRouter.post("/signin", async (req, res) => {
       if (!isPasswordValid) return res.status(401).json({ error: "Invalid Password" });
 
       const sessionToken = jwt.sign({ email: user.email }, SECRET_KEY, { expiresIn: JWT_EXPIRES_IN });
-      res.cookie("token", sessionToken, { httpOnly: true, secure:true});
+
+      // Set cookie and wait for it before continuing
+      await new Promise((resolve, reject) => {
+         res.cookie("token", sessionToken, { 
+            httpOnly: true, 
+            secure: true, 
+         });
+         resolve();
+      });
+
       res.status(200).json({ message: "Login Successful" });
    } catch (e) {
       console.error('Signin Error:', e);
       res.status(500).json({ error: "Login Failed" });
    }
 });
+
 
 userRouter.post('/signout', (req, res) => {
    try {
