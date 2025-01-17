@@ -32,11 +32,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use("/api/v1", mainRouter);
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser : true,
-    useUnifiedTopology : true,
-    ssl : true,
-});
+mongoose.connect(process.env.MONGO_URL, {ssl : true});
 console.log("Connected to Database");
 
 app.listen(3000, () => console.log("Server Started"));
