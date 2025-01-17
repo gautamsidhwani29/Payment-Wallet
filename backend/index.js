@@ -20,6 +20,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+app.set('trust proxy', 1);
 
 const corsOptions = {
     origin: [`http://localhost:${port}`, `http://localhost:5173`], 
@@ -31,7 +32,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use("/api/v1", mainRouter);
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser : true,
+    useUnifiedTopology : true,
+    ssl : true,
+});
 console.log("Connected to Database");
 
 app.listen(3000, () => console.log("Server Started"));

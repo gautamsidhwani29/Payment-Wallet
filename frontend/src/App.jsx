@@ -4,6 +4,7 @@ import Signup from "./Components/Signup";
 import Dashboard from "./Components/Dashboard";
 import SendMoney from "./Components/SendMoney";
 import AuthChoice from "./Components/AuthChoice";
+import NotFoundPage from "./Components/NotFoundPage";
 
 
 
@@ -12,6 +13,7 @@ export default function App(){
     
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFoundPage/>}/>
       <Route path="/" element={<AuthChoice/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/signin" element={<Signin/>}/>
