@@ -33,7 +33,6 @@ app.use(cors(corsOptions));
 app.use("/api/v1", mainRouter);
 
 mongoose.connect(process.env.MONGO_URL, {ssl : true,
-    autoReconnect: true,
     connectTimeoutMS: 20000, 
     socketTimeoutMS: 45000,
 });
