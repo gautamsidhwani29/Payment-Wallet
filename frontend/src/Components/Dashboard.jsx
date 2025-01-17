@@ -18,13 +18,13 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const accountResponse = await axios.get(
-          "http://localhost:3000/api/v1/account/details",
+          "https://payment-wallet-b6m6.onrender.com/api/v1/account/details",
           { withCredentials: true }
         );
         setData(accountResponse.data);
 
         const usersResponse = await axios.get(
-          "http://localhost:3000/api/v1/user/users",
+          "https://payment-wallet-b6m6.onrender.com/api/v1/user/users",
           { withCredentials: true }
         );
         setUsers(usersResponse.data.users || []);
@@ -55,7 +55,7 @@ function Dashboard() {
 
   const handleSignOut = async () => {
     try {
-      await axios.post("http://localhost:3000/api/v1/user/signout", {}, { withCredentials: true });
+      await axios.post("https://payment-wallet-b6m6.onrender.com/api/v1/user/signout", {}, { withCredentials: true });
       navigate("/signin", { replace: true });
     } catch (err) {
       console.error("Sign out failed:", err);

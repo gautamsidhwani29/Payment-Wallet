@@ -16,7 +16,7 @@ function SendMoney() {
     const handleTransfer = (e) => {
       e.preventDefault();
       axios
-        .post("http://localhost:3000/api/v1/account/transfer", { to: email, amount },
+        .post("https://payment-wallet-b6m6.onrender.com/api/v1/account/transfer", { to: email, amount },
           {
             withCredentials: true,
           }

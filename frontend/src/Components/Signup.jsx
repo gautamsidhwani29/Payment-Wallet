@@ -13,10 +13,11 @@ function Signup() {
     const handleClick = async(e)=>{
       e.preventDefault();
       try{
-        const response = await axios.post("http://localhost:3000/api/v1/user/signup",{
+        const response = await axios.post("https://payment-wallet-b6m6.onrender.com/api/v1/user/signup",{
           firstName,
           lastName,
           email,
+          
           password
         }, 
         {withCredentials : true},

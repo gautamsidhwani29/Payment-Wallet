@@ -23,7 +23,7 @@ app.use(limiter);
 app.set('trust proxy', 1);
 
 const corsOptions = {
-    origin: [`http://localhost:${port}`, `http://localhost:5173`], 
+    origin: [`http://localhost:${port}`, `http://localhost:5173`, 'https://frontend-krx1xgoja-gautamsidhwanis-projects.vercel.app'], 
     credentials: true,  
     optionSuccessStatus: 200,
  };
